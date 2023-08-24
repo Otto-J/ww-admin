@@ -9,6 +9,7 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
+    "@arco-design/web-vue": "^2.50.1",
     "@nuxt/devtools": "latest",
     "@types/node": "^18.17.3",
     "nuxt": "^3.6.5"
