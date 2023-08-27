@@ -12,6 +12,7 @@
   "compilerOptions": {
     "composite": true,
     "baseUrl": ".",
+    "types": ["vite-plugin-vue-layouts/client"],
     "paths": {
       "@/*": ["./src/*"]
     }

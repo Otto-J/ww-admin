@@ -34,6 +34,10 @@ import axios from 'axios'
 import { Cloud } from 'laf-client-sdk'
 import { Message } from '@arco-design/web-vue'
 
+defineOptions({
+  name: 'PageLogin'
+})
+
 const http = axios.create({
   baseURL: 'https://admin.webworker.tech'
 })

@@ -1,5 +1,10 @@
 <template>
-  <a-row :class="$style.header" style="background-color: var(--color-menu-light-bg)" align="center">
+  <a-row
+    class="border-slate-100 border-b-2"
+    :class="$style.header"
+    style="background-color: var(--color-menu-light-bg)"
+    align="center"
+  >
     <a-col flex="auto">
       <a-menu mode="horizontal">
         <a-menu-item key="0" :style="{ padding: 0, marginRight: '38px' }" disabled>
@@ -41,5 +46,7 @@ defineOptions({
 <style module>
 .header {
   --color-menu-light-bg: #fff;
+
+  /* box-shadow: 0 3px 6px rgba(51, 53, 59, 0.06); */
 }
 </style>
