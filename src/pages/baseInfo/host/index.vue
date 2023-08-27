@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full" style="height: 400px; display: block">
+  <div class="w-full" style="height: 500px; display: block">
     <Editor
       mode="split"
       v-model:value="value"
@@ -7,14 +7,13 @@
       :locale="zhHans"
       :plugins="plugins"
       class="h-full"
-      style="outline: 1px solid red"
       @change="handleChange"
     />
     <!-- <Viewer :value="value" :plugins="plugins" /> -->
   </div>
 </template>
 <script lang="ts" setup>
-import { ref } from 'vue'
+// @ts-ignore
 import { Editor } from '@bytemd/vue-next'
 import frontmatter from '@bytemd/plugin-frontmatter'
 import gfm from '@bytemd/plugin-gfm'
@@ -24,7 +23,7 @@ import zhHans from 'bytemd/locales/zh_Hans.json'
 import breaks from '@bytemd/plugin-breaks'
 import '@/assets/md2.css'
 // import '@/assets/md.css'
-
+import 'highlight.js/styles/rainbow.css'
 import 'bytemd/dist/index.css'
 
 defineOptions({
@@ -36,7 +35,7 @@ const plugins = [
   gfm(),
   frontmatter(),
   gemoji(),
-  highlight(),
+  highlight({}),
   breaks()
   // Add more plugins here
 ]

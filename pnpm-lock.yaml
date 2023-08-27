@@ -35,6 +35,9 @@ dependencies:
   bytemd:
     specifier: ^1.21.0
     version: 1.21.0
+  highlight.js:
+    specifier: ^11.8.0
+    version: 11.8.0
   laf-client-sdk:
     specifier: 1.0.0-beta.10
     version: 1.0.0-beta.10

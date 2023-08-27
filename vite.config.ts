@@ -60,6 +60,7 @@ export default defineConfig({
       resolvers: [ArcoResolver()],
       imports: [
         // Vue
+        'vue',
 
         VueRouterAutoImports,
 
@@ -67,7 +68,12 @@ export default defineConfig({
           // add any other imports you were relying on
           'vue-router/auto': ['useLink']
         }
-      ]
+      ],
+      eslintrc: {
+        enabled: true,
+        filepath: './.eslintrc-auto-import.json'
+      },
+      dts: true
     }),
     Components({
       resolvers: [

@@ -7,12 +7,15 @@ module.exports = {
     'plugin:vue/vue3-recommended',
     'eslint:recommended',
     '@vue/eslint-config-typescript',
-    '@vue/eslint-config-prettier/skip-formatting'
+    '@vue/eslint-config-prettier/skip-formatting',
+
+    './.eslintrc-auto-import.json'
   ],
   parserOptions: {
     ecmaVersion: 'latest'
   },
   rules: {
-    'vue/attributes-order': 'off'
+    'vue/attributes-order': 'off',
+    'vue/multi-word-component-names': 'off'
   }
 }
