@@ -26,6 +26,9 @@ dependencies:
   '@bytemd/vue-next':
     specifier: ^1.21.0
     version: 1.21.0(vue@3.3.4)
+  '@dangojs/a-query-header':
+    specifier: ^0.0.31
+    version: 0.0.31(@arco-design/web-vue@2.50.1)(@dangojs/digitforce-ui-utils@0.0.9)(lodash@4.17.21)(vue@3.3.4)
   '@vueuse/core':
     specifier: ^10.3.0
     version: 10.3.0(vue@3.3.4)
@@ -531,6 +534,27 @@ packages:
       vue: 3.3.4
     transitivePeerDependencies:
       - supports-color
+    dev: false
+
+  /@dangojs/a-query-header@0.0.31(@arco-design/web-vue@2.50.1)(@dangojs/digitforce-ui-utils@0.0.9)(lodash@4.17.21)(vue@3.3.4):
+    resolution: {integrity: sha512-hXLAU8oIQ1ULDY+qXKoKstqo3/m4HTjXcxNaFbPatTVMHwox4tBAIc5Nox1crvlWkNagUyk7PpnQuzLH73j9AQ==}
+    peerDependencies:
+      '@arco-design/web-vue': ^2.47.1
+      '@dangojs/digitforce-ui-utils': ^0.0.9
+      lodash: ^4.17.21
+      vue: ^3.3.2
+    dependencies:
+      '@arco-design/web-vue': 2.50.1(vue@3.3.4)
+      '@dangojs/digitforce-ui-utils': 0.0.9
+      lodash: 4.17.21
+      vue: 3.3.4
+    dev: false
+
+  /@dangojs/digitforce-ui-utils@0.0.9:
+    resolution: {integrity: sha512-ujmlm/dHteE0+EPuMWQLcGt68BtA4uiZYdlCvpc6tyYOw4cNWKZ94bleBuL+qjxzvnyj04aDpz1dq8wiyre7WQ==}
+    dependencies:
+      lodash: 4.17.21
+      vue: 3.3.4
     dev: false
 
   /@esbuild-kit/cjs-loader@2.4.2:
@@ -3644,7 +3668,6 @@ packages:
 
   /lodash@4.17.21:
     resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
-    dev: true
 
   /longest-streak@3.1.0:
     resolution: {integrity: sha512-9Ri+o0JYgehTaVBBDoMqIl8GXtbWg711O3srftcHhZ0dqnETqLaoIK0x17fUw9rFSlK/0NlsKe0Ahhyl5pXE2g==}

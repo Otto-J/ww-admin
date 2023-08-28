@@ -8,7 +8,7 @@
   >
     <template #title>{{ props.type === 'add' ? '添加' : '编辑' }}</template>
     <!-- <div>{{ props }},{{ formModel }}</div> -->
-    <a-form :model="formModel">
+    <a-form ref="formRef" :rules="formRules" :model="formModel">
       <a-form-item field="name" label="姓名">
         <a-input v-model="formModel.name" />
       </a-form-item>
@@ -35,9 +35,9 @@
         <a-input v-model="formModel.link" placeholder="嘉宾网络链接" />
       </a-form-item>
       <!-- wechatId -->
-      <a-form-item field="wechatId" label="微信ID">
+      <!-- <a-form-item field="wechatId" label="微信ID">
         <a-input v-model="formModel.wechatId" placeholder="后续自动开通账号" />
-      </a-form-item>
+      </a-form-item> -->
       <!-- twitter -->
       <a-form-item field="twitter" label="Twitter">
         <a-input v-model="formModel.twitter" placeholder="Twitter" />
@@ -54,7 +54,7 @@
   </a-modal>
 </template>
 <script lang="ts" setup>
-import { Message } from '@arco-design/web-vue'
+import { Message, type FieldRule, type FormInstance } from '@arco-design/web-vue'
 import { Cloud } from 'laf-client-sdk'
 import { ref } from 'vue'
 import { useCloned } from '@vueuse/core'
@@ -83,6 +83,8 @@ const closeModel = () => {
   emits('update:visible', false)
 }
 
+const formRef = ref<FormInstance>()
+
 const cloud = new Cloud({
   // 这里 APPID 需要换成对应的 APPID
   baseUrl: 'https://admin.webworker.tech',
@@ -104,6 +106,15 @@ const defaultFormModel = () => ({
   order: 1
 })
 const formModel = ref(defaultFormModel())
+
+const formRules: Partial<Record<keyof ReturnType<typeof defaultFormModel>, FieldRule[]>> = {
+  name: [
+    {
+      required: true,
+      message: '必填'
+    }
+  ]
+}
 
 const isCreate = computed(() => props.type === 'add')
 const isUpdate = computed(() => props.type === 'edit')
@@ -127,6 +138,10 @@ watchEffect(() => {
 })
 
 const onOk = async () => {
+  const validate = await formRef.value?.validate()
+  if (validate) {
+    return
+  }
   const col = db.collection('podcast-person')
   if (isCreate.value) {
     col

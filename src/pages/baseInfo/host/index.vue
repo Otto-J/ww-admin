@@ -1,13 +1,30 @@
 <template>
-  <div class="w-full p-4 bg-white rounded-sm">
+  <a-page-header class="bg-white rounded-md mb-4" :title="($route.meta.title as string)">
+    <template #extra>
+      <div class="text-right">
+        <a-space>
+          <a-button type="primary" @click="addItem">
+            <template #icon>
+              <IconPlus />
+            </template>
+            添加</a-button
+          >
+        </a-space>
+      </div>
+    </template>
+  </a-page-header>
+
+  <div class="w-full p-4 bg-white rounded-md">
     <!-- <MdEditor v-model:text="text" /> -->
-    <!-- <div>{{ modelVisible }}</div> -->
-    <div class="text-right mb-4">
-      <a-space>
-        <a-button @click="refresh">刷新</a-button>
-        <a-button type="primary" @click="addItem">添加</a-button>
-      </a-space>
-    </div>
+
+    <a-query-header :model="queryFormModel" @submit="fetchTable">
+      <!-- name input -->
+      <a-form-item field="name" label="姓名">
+        <a-input v-model="queryFormModel.name" />
+      </a-form-item>
+    </a-query-header>
+    <a-divider />
+
     <a-table
       :bordered="false"
       :hoverable="true"
@@ -35,14 +52,8 @@
 import { type TableColumnData } from '@arco-design/web-vue'
 import { Cloud } from 'laf-client-sdk'
 import BaseInfoPersonModel from './components/model.vue'
-import {
-  IconTwitter,
-  IconShareAlt,
-  IconPushpin,
-  IconUser,
-  IconHeartFill
-} from '@arco-design/web-vue/es/icon'
-
+import { IconTwitter, IconShareAlt, IconHeartFill, IconPlus } from '@arco-design/web-vue/es/icon'
+import AQueryHeader from '@dangojs/a-query-header'
 const cloud = new Cloud({
   // 这里 APPID 需要换成对应的 APPID
   baseUrl: 'https://admin.webworker.tech',
@@ -67,12 +78,27 @@ const modelVisible = ref({
 const fetchTable = () => {
   const col = db.collection('podcast-person')
 
-  col.get().then((res) => {
-    console.log(2, res)
-    if (res.ok) {
-      tableData.value = res.data
-    }
-  })
+  col
+    .where({
+      name: new RegExp(queryFormModel.value.name, 'i')
+    })
+    .get()
+    .then((res) => {
+      console.log(2, res)
+      if (res.ok) {
+        tableData.value = res.data
+      }
+    })
+}
+
+// query form
+const defaultQueryFormModel = () => ({
+  name: ''
+})
+const queryFormModel = ref(defaultQueryFormModel())
+
+const clearQueryForm = () => {
+  queryFormModel.value = defaultQueryFormModel()
 }
 
 watchEffect(() => {
@@ -140,19 +166,7 @@ const tableColumns = ref<TableColumnData[]>([
       )
     }
   },
-  // {
-  //   title: '是否展示',
-  //   render({ record }) {
-  //     return record.isShow ? '是' : '否'
-  //   }
-  // },
-  {
-    title: '是否主播',
-    width: 100,
-    render({ record }) {
-      return record.isHost ? '是' : '否'
-    }
-  },
+
   {
     title: '简介',
     dataIndex: 'bio'
