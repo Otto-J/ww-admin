@@ -39,7 +39,7 @@
 import { IconUser } from '@arco-design/web-vue/es/icon'
 
 defineOptions({
-  name: 'PageIndex'
+  name: 'CommonHeader'
 })
 </script>
 

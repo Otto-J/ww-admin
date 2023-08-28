@@ -1,8 +1,12 @@
 <template>
-  <div class="w-full p-4 bg-white rounded-sm" style="height: 500px">
+  <div class="w-full p-4 bg-white rounded-sm">
     <!-- <MdEditor v-model:text="text" /> -->
+    <!-- <div>{{ modelVisible }}</div> -->
     <div class="text-right mb-4">
-      <a-button type="primary" @click="addItem">添加</a-button>
+      <a-space>
+        <a-button @click="refresh">刷新</a-button>
+        <a-button type="primary" @click="addItem">添加</a-button>
+      </a-space>
     </div>
     <a-table
       :bordered="false"
@@ -17,51 +21,27 @@
         </a-space>
       </template>
     </a-table>
-    <a-modal
+    <BaseInfoPersonModel
       v-model:visible="modelVisible.status"
-      title-align="start"
-      @cancel="onCancel"
-      @ok="onOk"
-    >
-      <template #title>{{ modelVisible.type === 'add' ? '添加' : '编辑' }}</template>
-      <a-form :model="formModel">
-        <a-form-item field="name" label="姓名">
-          <a-input v-model="formModel.name" />
-        </a-form-item>
-        <!-- is Host -->
-        <a-form-item field="isHost" label="是否主播">
-          <a-switch v-model="formModel.isHost" />
-        </a-form-item>
-        <!-- avatar -->
-        <a-form-item field="avatar" label="头像">
-          <a-space>
-            <a-input v-model="formModel.avatar" placeholder="嘉宾头像" />
-            <a-avatar>
-              <img v-if="formModel.avatar" :src="formModel.avatar" />
-              <template v-else>A</template>
-            </a-avatar>
-          </a-space>
-        </a-form-item>
-        <!-- bio input -->
-        <a-form-item field="bio" label="简介">
-          <a-input v-model="formModel.bio" placeholder="一句话介绍" />
-        </a-form-item>
-        <!-- link -->
-        <a-form-item field="link" label="链接">
-          <a-input v-model="formModel.link" placeholder="嘉宾网络链接" />
-        </a-form-item>
-        <!-- wechatId -->
-        <a-form-item field="wechatId" label="微信ID">
-          <a-input v-model="formModel.wechatId" placeholder="后续自动开通账号" />
-        </a-form-item>
-      </a-form>
-    </a-modal>
+      :type="modelVisible.type"
+      :id="modelVisible.id"
+      @refresh="refresh"
+    />
   </div>
 </template>
-<script lang="ts" setup>
-import MdEditor from '@/components/md-editor.vue'
-import type { TableColumnData } from '@arco-design/web-vue'
+
+<script lang="tsx" setup>
+// import MdEditor from '@/components/md-editor.vue'
+import { type TableColumnData } from '@arco-design/web-vue'
 import { Cloud } from 'laf-client-sdk'
+import BaseInfoPersonModel from './components/model.vue'
+import {
+  IconTwitter,
+  IconShareAlt,
+  IconPushpin,
+  IconUser,
+  IconHeartFill
+} from '@arco-design/web-vue/es/icon'
 
 const cloud = new Cloud({
   // 这里 APPID 需要换成对应的 APPID
@@ -78,28 +58,11 @@ defineOptions({
   name: 'PageHost'
 })
 
-const defaultFormModel = () => ({
-  name: '',
-  avatar: '',
-  bio: '',
-  link: '',
-  isHost: false,
-  wechatId: ''
-})
-
-const formModel = ref(defaultFormModel())
-
 const modelVisible = ref({
   status: false,
-  type: 'add'
+  type: 'add' as 'add' | 'edit',
+  id: ''
 })
-
-const addItem = () => {
-  modelVisible.value = {
-    status: true,
-    type: 'add'
-  }
-}
 
 const fetchTable = () => {
   const col = db.collection('podcast-person')
@@ -112,50 +75,124 @@ const fetchTable = () => {
   })
 }
 
+watchEffect(() => {
+  if (!modelVisible.value.status) {
+    modelVisible.value.type = 'add'
+    modelVisible.value.id = ''
+    // fetchTable()
+  }
+})
+
+const addItem = () => {
+  modelVisible.value = {
+    status: true,
+    type: 'add',
+    id: ''
+  }
+}
+
+const refresh = () => {
+  fetchTable()
+}
+
 onMounted(() => {
   fetchTable()
 })
 
-const onOk = (e) => {
-  const col = db.collection('podcast-person')
-
-  col
-    .add(formModel.value)
-    .then((res) => {
-      console.log(res)
-    })
-    .catch((err) => {
-      console.log(err)
-    })
-}
-const onCancel = (e) => {}
-
 const updateItem = (info: any) => {
-  console.log(info._id)
-  console.log(info)
+  modelVisible.value = {
+    status: true,
+    type: 'edit',
+    id: info._id
+  }
 }
-
-const text = ref('')
 
 const tableData = ref<any[]>([])
 const tableColumns = ref<TableColumnData[]>([
   {
     title: '序号',
-    render: ({ rowIndex }) => `${rowIndex + 1}`
+    render: ({ rowIndex }) => `${rowIndex + 1}`,
+    width: 60,
+    fixed: 'left'
   },
   {
     title: '姓名',
-    dataIndex: 'name'
+    dataIndex: 'name',
+    width: 160,
+    fixed: 'left'
   },
   {
+    title: '头像',
+    width: 100,
+    render({ record }) {
+      return record.isHost ? (
+        <a-avatar
+          v-slots={{
+            'trigger-icon': () => <IconHeartFill style="color:rgb(239, 68, 68)" />
+          }}
+        >
+          <img class="max-w-fit" src={record.avatar} />
+        </a-avatar>
+      ) : (
+        <a-avatar>
+          <img class="max-w-fit" src={record.avatar} />
+        </a-avatar>
+      )
+    }
+  },
+  // {
+  //   title: '是否展示',
+  //   render({ record }) {
+  //     return record.isShow ? '是' : '否'
+  //   }
+  // },
+  {
     title: '是否主播',
+    width: 100,
     render({ record }) {
       return record.isHost ? '是' : '否'
     }
   },
   {
+    title: '简介',
+    dataIndex: 'bio'
+  },
+  // twitter
+  {
+    title: '链接Link',
+    render({ record }) {
+      return (
+        <a-button-group type="primary">
+          {record.twitter && (
+            <a-button
+              type="text"
+              onClick={() => {
+                window.open(record.twitter)
+              }}
+              v-slots={{
+                icon: () => <IconTwitter />
+              }}
+            ></a-button>
+          )}
+          {record.link && (
+            <a-button
+              type="text"
+              onClick={() => {
+                window.open(record.link)
+              }}
+              v-slots={{
+                icon: () => <IconShareAlt />
+              }}
+            ></a-button>
+          )}
+        </a-button-group>
+      )
+    }
+  },
+  {
     title: '操作',
-    slotName: 'action'
+    slotName: 'action',
+    fixed: 'right'
   }
 ])
 </script>

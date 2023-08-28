@@ -18,8 +18,8 @@
   </a-layout>
 </template>
 <script lang="ts" setup>
-import CommonHeader from '@/components/header.vue'
-import SubMenu from '@/components/side-menu.vue'
+import CommonHeader from '@/components/CommonHeader.vue'
+import SideMenu from '@/components/SideMenu.vue'
 
 defineOptions({
   name: 'LayoutDefault'

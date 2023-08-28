@@ -30,7 +30,7 @@ export default defineConfig({
       // e.g. ['**/__*'] will exclude all files and folders starting with `__`
       // e.g. ['**/__*/**/*'] will exclude all files within folders starting with `__`
       // e.g. ['**/*.component.vue'] will exclude components ending with `.component.vue`
-      exclude: [],
+      exclude: ['**/__*', '**/components/**/*'],
 
       // Path for the generated types. Defaults to `./typed-router.d.ts` if typescript
       // is installed. Can be disabled by passing `false`.
@@ -76,6 +76,8 @@ export default defineConfig({
       dts: true
     }),
     Components({
+      dts: true, // default is true
+      globs: ['**/components/*.{vue}'],
       resolvers: [
         ArcoResolver({
           sideEffect: true

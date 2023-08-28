@@ -9,6 +9,10 @@
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue'
 
+defineOptions({
+  name: 'SideMenu'
+})
+
 const menuSelectKeys = ref(['0-1'])
 
 const onMenuItemClick = (key: string) => {
