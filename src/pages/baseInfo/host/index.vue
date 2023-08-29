@@ -9,6 +9,7 @@
             </template>
             添加</a-button
           >
+          <a-button type="primary" @click="genFile"> 生成md文件 </a-button>
         </a-space>
       </div>
     </template>
@@ -54,6 +55,8 @@ import { Cloud } from 'laf-client-sdk'
 import BaseInfoPersonModel from './components/model.vue'
 import { IconTwitter, IconShareAlt, IconHeartFill, IconPlus } from '@arco-design/web-vue/es/icon'
 import AQueryHeader from '@dangojs/a-query-header'
+import { generateFile } from './model'
+
 const cloud = new Cloud({
   // 这里 APPID 需要换成对应的 APPID
   baseUrl: 'https://admin.webworker.tech',
@@ -97,9 +100,9 @@ const defaultQueryFormModel = () => ({
 })
 const queryFormModel = ref(defaultQueryFormModel())
 
-const clearQueryForm = () => {
-  queryFormModel.value = defaultQueryFormModel()
-}
+// const clearQueryForm = () => {
+//   queryFormModel.value = defaultQueryFormModel()
+// }
 
 watchEffect(() => {
   if (!modelVisible.value.status) {
@@ -119,6 +122,10 @@ const addItem = () => {
 
 const refresh = () => {
   fetchTable()
+}
+
+const genFile = () => {
+  generateFile(tableData.value)
 }
 
 onMounted(() => {
