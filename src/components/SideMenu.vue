@@ -46,6 +46,11 @@ const menuDataMock = [
         id: '0-2',
         title: '播客列表',
         url: '/baseInfo/podcast'
+      },
+      {
+        id: '0-3',
+        title: '文字片段',
+        url: '/baseInfo/words'
       }
     ]
   },

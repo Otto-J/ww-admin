@@ -18,12 +18,12 @@
   <div class="w-full p-4 bg-white rounded-md">
     <!-- <MdEditor v-model:text="text" /> -->
 
-    <a-query-header :model="queryFormModel" @submit="fetchTable">
+    <query-header :model="queryFormModel" @submit="fetchTable">
       <!-- name input -->
       <a-form-item field="name" label="姓名">
         <a-input v-model="queryFormModel.name" />
       </a-form-item>
-    </a-query-header>
+    </query-header>
     <a-divider />
 
     <a-table
@@ -54,7 +54,6 @@ import { type TableColumnData } from '@arco-design/web-vue'
 import { Cloud } from 'laf-client-sdk'
 import BaseInfoPersonModel from './components/model.vue'
 import { IconTwitter, IconShareAlt, IconHeartFill, IconPlus } from '@arco-design/web-vue/es/icon'
-import AQueryHeader from '@dangojs/a-query-header'
 import { generateFile } from './model'
 
 const cloud = new Cloud({

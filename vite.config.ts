@@ -57,7 +57,12 @@ export default defineConfig({
     }),
     vueJsx(),
     AutoImport({
-      resolvers: [ArcoResolver()],
+      resolvers: [
+        ArcoResolver({
+          sideEffect: false
+        })
+      ],
+      dts: './auto-imports.d.ts',
       imports: [
         // Vue
         'vue',
@@ -72,16 +77,26 @@ export default defineConfig({
       eslintrc: {
         enabled: true,
         filepath: './.eslintrc-auto-import.json'
-      },
-      dts: true
+      }
     }),
     Components({
       dts: true, // default is true
       globs: ['**/components/*.{vue}'],
       resolvers: [
         ArcoResolver({
-          sideEffect: true
-        })
+          sideEffect: false
+        }),
+        (componentName) => {
+          // if (componentName.includes('Query')) {
+          //   console.log(1, componentName)
+          // }
+          if (componentName === 'QueryHeader') {
+            return {
+              name: 'AQueryHeader',
+              from: '@dangojs/a-query-header'
+            }
+          }
+        }
       ]
     })
   ],

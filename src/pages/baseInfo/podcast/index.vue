@@ -16,12 +16,12 @@
       </template>
     </a-page-header>
     <div class="w-full p-4 bg-white rounded-md">
-      <a-query-header :model="queryFormModel" @submit="fetchTable">
+      <query-header :model="queryFormModel" @submit="fetchTable">
         <!-- name input -->
         <a-form-item field="name" label="姓名">
           <a-input v-model="queryFormModel.name" />
         </a-form-item>
-      </a-query-header>
+      </query-header>
       <a-divider />
       <a-table
         :bordered="false"
@@ -50,8 +50,7 @@
 </template>
 
 <script lang="tsx" setup>
-import AQueryHeader from '@dangojs/a-query-header'
-import { IconTwitter, IconShareAlt, IconHeartFill, IconPlus } from '@arco-design/web-vue/es/icon'
+import { IconPlus } from '@arco-design/web-vue/es/icon'
 import { Cloud } from 'laf-client-sdk'
 import { type TableColumnData } from '@arco-design/web-vue'
 import PodcastModel from './components/model.vue'

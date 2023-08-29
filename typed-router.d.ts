@@ -45,6 +45,7 @@ declare module 'vue-router/auto/routes' {
     '/baseInfo/[...path]': RouteRecordInfo<'/baseInfo/[...path]', '/baseInfo/:path(.*)', { path: ParamValue<true> }, { path: ParamValue<false> }>,
     'PageHost': RouteRecordInfo<'PageHost', '/baseInfo/host', Record<never, never>, Record<never, never>>,
     'PagePodcast': RouteRecordInfo<'PagePodcast', '/baseInfo/podcast', Record<never, never>, Record<never, never>>,
+    'PageWords': RouteRecordInfo<'PageWords', '/baseInfo/words', Record<never, never>, Record<never, never>>,
     '/login': RouteRecordInfo<'/login', '/login', Record<never, never>, Record<never, never>>,
   }
 }
