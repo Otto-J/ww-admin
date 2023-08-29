@@ -52,7 +52,7 @@ const handleLogout = () => {
 }
 const router = useRouter()
 
-const onSelect = (val: string) => {
+const onSelect = (val: string | number | Record<string, any> | undefined, e: Event) => {
   console.log(val)
   if (val === 'logout') {
     // 准备退出

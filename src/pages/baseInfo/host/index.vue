@@ -21,7 +21,7 @@
     <query-header :model="queryFormModel" @submit="fetchTable">
       <!-- name input -->
       <a-form-item field="name" label="姓名">
-        <a-input v-model="queryFormModel.name" />
+        <a-input v-model="queryFormModel.name" @press-enter="fetchTable()" />
       </a-form-item>
     </query-header>
     <a-divider />
