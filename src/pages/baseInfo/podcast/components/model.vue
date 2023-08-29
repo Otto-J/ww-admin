@@ -38,16 +38,12 @@
       </a-form-item>
       <!-- cover -->
       <a-form-item field="cover" label="封面">
-        <a-input v-model="formModel.cover" />
-        <a-image width="100" :src="formModel.cover" />
-
-        <!-- <a-space>
-          <a-input v-model="formModel.cover" placeholder="嘉宾头像" />
-          <a-avatar>
-            <img class="max-w-fit" v-if="formModel.cover" :src="formModel.avatar" />
-            <template v-else>A</template>
-          </a-avatar>
-        </a-space> -->
+        <a-space>
+          <div>
+            <a-image width="100" :src="formModel.cover" />
+          </div>
+          <a-input v-model="formModel.cover" />
+        </a-space>
       </a-form-item>
       <!-- 下拉框 host -->
       <a-form-item field="host" label="主持人">
@@ -65,8 +61,16 @@
           }}</a-option>
         </a-select>
       </a-form-item>
+      <!-- 嘉宾信息 -->
+      <a-form-item field="guestIntro" label="嘉宾信息">
+        <md-editor v-model:text="formModel.guestIntro" class="w-full overflow-auto h-52" />
+      </a-form-item>
+      <!--  timeline -->
+      <a-form-item field="timeline" label="时间轴">
+        <md-editor v-model:text="formModel.timeline" class="w-full overflow-auto h-52" />
+      </a-form-item>
     </a-form>
-    <MdEditor v-model:text="text" />
+    <!-- <MdEditor v-model:text="text" /> -->
   </a-modal>
 </template>
 <script lang="ts" setup>

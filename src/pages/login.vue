@@ -30,35 +30,12 @@
 </template>
 <script lang="ts" setup>
 import { ref } from 'vue'
-import axios from 'axios'
-import { Cloud } from 'laf-client-sdk'
+import http from '@/utils/http'
+// import { Cloud } from 'laf-client-sdk'
 import { Message } from '@arco-design/web-vue'
 
 defineOptions({
   name: 'PageLogin'
-})
-
-const http = axios.create({
-  baseURL: 'https://admin.webworker.tech'
-})
-
-http.interceptors.request.use((config) => {
-  const token = localStorage.getItem('access_token')
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`
-  }
-  return config
-})
-http.interceptors.response.use((res) => {
-  if (res.status === 200) {
-    // 进一步 res.data.error
-    if (res.data.error) {
-      return Promise.reject(res.data.error)
-    } else {
-      return res.data
-    }
-  }
-  return res
 })
 
 // https://admin.webworker.tech/user/login

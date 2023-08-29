@@ -3,6 +3,7 @@ import type { TableColumnData } from '@arco-design/web-vue'
 import { ButtonGroup as AButtonGroup, Button } from '@arco-design/web-vue'
 import dayjs from 'dayjs'
 
+// @ts-ignore
 export const useTable = () => {
   // query form
   const defaultQueryFormModel = () => ({

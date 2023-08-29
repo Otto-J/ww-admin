@@ -15,14 +15,20 @@
     </template>
   </a-page-header>
   <div class="w-full p-4 bg-white rounded-md">
-    <query-header :model="queryForm" @submit="fetchTable">
+    <query-header :model="queryForm" @submit="fetchTable()">
       <!-- name input -->
-      <a-form-item field="title" label="姓名6">
+      <a-form-item field="title" label="标题">
         <a-input v-model="queryForm.title" />
       </a-form-item>
     </query-header>
     <a-divider />
-    <a-query-table :request="fetchTable" :columns="tableColumns" :params="queryForm">
+    <a-query-table
+      :loading="tableLoading"
+      :request="fetchTable"
+      :columns="tableColumns"
+      :params="queryForm"
+      ref="queryTableRef"
+    >
       <template #action="{ record }">
         <a-space>
           <a-button size="small" type="text" @click="editItem(record)">编辑</a-button>
@@ -79,6 +85,14 @@ const col = db.collection('podcast-remark')
 const queryForm = ref({
   title: ''
 })
+
+const tableLoading = ref(false)
+
+const queryTableRef = ref()
+
+const reloadTable = () => {
+  queryTableRef.value?.reload()
+}
 
 const modalVisible = ref({
   visible: false,
@@ -174,7 +188,7 @@ const deleteItem = (record: any) => {
       console.log(9, res)
       if (res.ok) {
         Message.success('删除成功')
-        fetchTable()
+        reloadTable()
       } else {
         Message.error('删除失败')
       }
@@ -187,6 +201,10 @@ const deleteItem = (record: any) => {
 
 const fetchTable = async () => {
   return col
+    .where({
+      // title reg
+      title: new RegExp(queryForm.value.title, 'i')
+    })
     .get()
     .then((res) => {
       console.log(9, res)
@@ -194,7 +212,7 @@ const fetchTable = async () => {
         return {
           success: true,
           data: res.data,
-          total: 0
+          total: res.data.length
         }
       } else {
         return {
@@ -216,7 +234,8 @@ const defaultModalFrom = () => ({
   title: '',
   order: 1,
   content: '',
-  publish: true
+  publish: true,
+  _id: undefined as undefined | string
 })
 const modalForm = ref(defaultModalFrom())
 
@@ -233,28 +252,28 @@ const onOk = () => {
       .then(() => {
         console.log(45)
         closeModal()
-        fetchTable()
+        reloadTable()
       })
       .catch((err) => {
         console.log(8, err)
       })
   } else {
+    const { _id, ...rest } = modalForm.value
     col
-      .doc(modalVisible.value.id)
-      .update(modalForm.value)
+      .doc(_id as string)
+      .update(rest)
       .then(() => {
-        // console.log(9, res)
         closeModal()
+        reloadTable()
       })
       .catch((err) => {
-        console.log(8, err)
+        Message.error('更新失败' + err)
       })
   }
 }
 const onCancel = () => {
   console.log(89)
   closeModal()
-  //  add col podcast-remark
 }
 </script>
 
