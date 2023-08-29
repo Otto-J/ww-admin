@@ -58,6 +58,7 @@ import { Message, type FieldRule, type FormInstance } from '@arco-design/web-vue
 import { Cloud } from 'laf-client-sdk'
 import { ref } from 'vue'
 import { useCloned } from '@vueuse/core'
+import { handle403 } from '@/utils/loginStatus'
 
 defineOptions({
   name: 'BaseInfoPersonModel'
@@ -131,6 +132,9 @@ watchEffect(() => {
             formModel.value = res.data
           }
         })
+        .catch((err) => {
+          handle403(err)
+        })
     } else {
       formModel.value = defaultFormModel()
     }
@@ -152,8 +156,7 @@ const onOk = async () => {
         emits('refresh')
       })
       .catch((err) => {
-        Message.error('添加失败')
-        console.log(err)
+        handle403(err)
       })
   } else if (isUpdate.value) {
     const id = props.id
@@ -172,8 +175,7 @@ const onOk = async () => {
         emits('refresh')
       })
       .catch((err) => {
-        Message.error('更新失败')
-        console.log(err)
+        handle403(err)
       })
   } else {
     Message.warning('未知操作')

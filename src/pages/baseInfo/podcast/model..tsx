@@ -1,6 +1,7 @@
 import { db } from '@/utils/cloud'
+import { handle403 } from '@/utils/loginStatus'
 import type { TableColumnData } from '@arco-design/web-vue'
-import { ButtonGroup as AButtonGroup, Button } from '@arco-design/web-vue'
+import { ButtonGroup as AButtonGroup, Button, Message } from '@arco-design/web-vue'
 import dayjs from 'dayjs'
 
 // @ts-ignore
@@ -98,6 +99,9 @@ export const useTable = () => {
         if (res.ok) {
           tableData.value = res.data
         }
+      })
+      .catch((err) => {
+        handle403(err)
       })
   }
   return {

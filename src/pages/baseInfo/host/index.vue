@@ -55,6 +55,7 @@ import { Cloud } from 'laf-client-sdk'
 import BaseInfoPersonModel from './components/model.vue'
 import { IconTwitter, IconShareAlt, IconHeartFill, IconPlus } from '@arco-design/web-vue/es/icon'
 import { generateFile } from './model'
+import { handle403 } from '@/utils/loginStatus'
 
 const cloud = new Cloud({
   // 这里 APPID 需要换成对应的 APPID
@@ -90,6 +91,9 @@ const fetchTable = () => {
       if (res.ok) {
         tableData.value = res.data
       }
+    })
+    .catch((err) => {
+      handle403(err)
     })
 }
 

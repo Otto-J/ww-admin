@@ -37,6 +37,7 @@
 </template>
 <script lang="ts" setup>
 // import router from '@/router';
+import { handleLogout } from '@/utils/loginStatus'
 import { Message } from '@arco-design/web-vue'
 import { IconUser } from '@arco-design/web-vue/es/icon'
 
@@ -44,12 +45,6 @@ defineOptions({
   name: 'CommonHeader'
 })
 
-const handleLogout = () => {
-  localStorage.removeItem('access_token')
-  // remote expired_at username
-  localStorage.removeItem('expired_at')
-  localStorage.removeItem('username')
-}
 const router = useRouter()
 
 const onSelect = (val: string | number | Record<string, any> | undefined, e: Event) => {

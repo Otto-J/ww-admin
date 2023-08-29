@@ -75,6 +75,7 @@ import AQueryTable from '@dangojs/a-query-table'
 import { Message, type TableColumnData } from '@arco-design/web-vue'
 import CommonModal from '@/components/common-modal.vue'
 import { db } from '@/utils/cloud'
+import { handle403 } from '@/utils/loginStatus'
 
 const addItem = () => {
   modalVisible.value.visible = true
@@ -172,7 +173,7 @@ watchEffect(() => {
         }
       })
       .catch((err) => {
-        console.log(8, err)
+        handle403(err)
       })
   }
 })
@@ -194,8 +195,7 @@ const deleteItem = (record: any) => {
       }
     })
     .catch((err) => {
-      console.log(8, err)
-      Message.error('删除失败')
+      handle403(err)
     })
 }
 
@@ -222,7 +222,9 @@ const fetchTable = async () => {
         }
       }
     })
-    .catch(() => {
+    .catch((err) => {
+      handle403(err)
+
       return {
         success: false,
         data: [],
@@ -255,7 +257,7 @@ const onOk = () => {
         reloadTable()
       })
       .catch((err) => {
-        console.log(8, err)
+        handle403(err)
       })
   } else {
     const { _id, ...rest } = modalForm.value
@@ -267,7 +269,7 @@ const onOk = () => {
         reloadTable()
       })
       .catch((err) => {
-        Message.error('更新失败' + err)
+        handle403(err)
       })
   }
 }

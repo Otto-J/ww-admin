@@ -79,6 +79,7 @@ import { Cloud } from 'laf-client-sdk'
 import { computed, ref } from 'vue'
 import { useCloned } from '@vueuse/core'
 import MdEditor from '@/components/md-editor.vue'
+import { handle403 } from '@/utils/loginStatus'
 
 defineOptions({
   name: 'PagePodcastModel'
@@ -214,8 +215,7 @@ const onOk = async () => {
         emits('refresh')
       })
       .catch((err) => {
-        Message.error('添加失败')
-        console.log(err)
+        handle403(err)
       })
   } else if (isUpdate.value) {
     const id = props.id
@@ -234,8 +234,7 @@ const onOk = async () => {
         emits('refresh')
       })
       .catch((err) => {
-        Message.error('更新失败')
-        console.log(err)
+        handle403(err)
       })
   } else {
     Message.warning('未知操作')
