@@ -1,4 +1,4 @@
 {
   "typescript.preferences.autoImportFileExcludePatterns": ["vue-router"],
-  "cSpell.words": ["bytemd", "gemoji"]
+  "cSpell.words": ["bytemd", "gemoji", "ipfs", "nocheck"]
 }

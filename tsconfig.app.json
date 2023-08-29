@@ -7,15 +7,15 @@
     "typed-router.d.ts",
     "auto-imports.d.ts",
     "components.d.ts",
-    "vite-plugin-vue-layouts/client.d.ts"
+    "node_modules/vite-plugin-vue-layouts/client.d.ts"
   ],
   "exclude": ["src/**/__tests__/*"],
   "compilerOptions": {
     "composite": true,
     "baseUrl": ".",
-    "types": ["vite-plugin-vue-layouts/client.d.ts"],
     "paths": {
       "@/*": ["./src/*"]
-    }
+    },
+    "types": ["vite-plugin-vue-layouts/client.d.ts"]
   }
 }

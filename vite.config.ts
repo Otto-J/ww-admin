@@ -9,6 +9,8 @@ import { ArcoResolver } from 'unplugin-vue-components/resolvers'
 import VueRouter from 'unplugin-vue-router/vite'
 import { VueRouterAutoImports } from 'unplugin-vue-router'
 import VueDevTools from 'vite-plugin-vue-devtools'
+
+// @ts-ignore
 import Layouts from 'vite-plugin-vue-layouts'
 
 // https://vitejs.dev/config/

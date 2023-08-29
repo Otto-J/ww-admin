@@ -23,24 +23,46 @@
       </a-menu>
     </a-col>
     <a-col flex="100px" class="text-right pr-6">
-      <a-dropdown position="bl" trigger="hover">
+      <a-dropdown @select="onSelect" position="bl" trigger="hover">
         <a-avatar :size="30">
           <IconUser />
         </a-avatar>
         <template #content>
-          <a-doption>个人中心</a-doption>
-          <a-doption>退出登录</a-doption>
+          <a-doption value="userCenter">个人中心</a-doption>
+          <a-doption value="logout">退出登录</a-doption>
         </template>
       </a-dropdown>
     </a-col>
   </a-row>
 </template>
 <script lang="ts" setup>
+// import router from '@/router';
+import { Message } from '@arco-design/web-vue'
 import { IconUser } from '@arco-design/web-vue/es/icon'
 
 defineOptions({
   name: 'CommonHeader'
 })
+
+const handleLogout = () => {
+  localStorage.removeItem('access_token')
+  // remote expired_at username
+  localStorage.removeItem('expired_at')
+  localStorage.removeItem('username')
+}
+const router = useRouter()
+
+const onSelect = (val: string) => {
+  console.log(val)
+  if (val === 'logout') {
+    // 准备退出
+    handleLogout()
+    Message.success('退出成功！')
+    router.push({
+      name: 'PageLogin'
+    })
+  }
+}
 </script>
 
 <style module>

@@ -1,5 +1,5 @@
 <template>
-  <a-page-header class="bg-white rounded-md mb-4" :title="$route.meta.title">
+  <a-page-header class="bg-white rounded-md mb-4" :title="($route.meta.title as string) ?? ''">
     <template #extra>
       <div class="text-right">
         <a-space>
@@ -62,7 +62,7 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { IconPlus } from '@arco-design/web-vue/lib/icon'
+import { IconPlus } from '@arco-design/web-vue/es/icon'
 import { ref } from 'vue'
 // import AQueryHeader from '@dangojs/a-query-header'
 import AQueryTable from '@dangojs/a-query-table'
@@ -242,7 +242,7 @@ const onOk = () => {
     col
       .doc(modalVisible.value.id)
       .update(modalForm.value)
-      .then((res) => {
+      .then(() => {
         // console.log(9, res)
         closeModal()
       })

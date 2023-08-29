@@ -98,6 +98,9 @@ const reg = async () => {
     })
 }
 
+const route = useRoute()
+const router = useRouter()
+
 const onSubmit = () => {
   console.log(formModel.value)
   http
@@ -107,9 +110,14 @@ const onSubmit = () => {
       data: formModel.value
     })
     .then((res) => {
-      let _res = res as unknown as { access_token: string }
+      let _res = res as unknown as { access_token: string; username: string; expired_at: number }
       Message.success('登录成功')
       localStorage.setItem('access_token', _res.access_token)
+      localStorage.setItem('username', _res.username)
+      localStorage.setItem('expired_at', String(_res.expired_at))
+
+      // router go /
+      router.replace('/')
     })
     .catch((e) => {
       Message.error('登录失败:' + e)
@@ -124,3 +132,9 @@ const onSubmit = () => {
   background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
 }
 </style>
+
+<route lang="yaml">
+name: PageLogin
+meta:
+  layout: blank
+</route>

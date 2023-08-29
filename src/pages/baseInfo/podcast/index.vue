@@ -1,6 +1,6 @@
 <template>
   <div>
-    <a-page-header class="bg-white rounded-md mb-4" :title="$route.meta.title">
+    <a-page-header class="bg-white rounded-md mb-4" :title="($route.meta.title as string)??''">
       <template #extra>
         <div class="text-right">
           <a-space>
@@ -88,7 +88,7 @@ const updateItem = ({ _id }: any) => {
     id: _id
   }
 }
-const genFile = () => {}
+// const genFile = () => {}
 
 const cloud = new Cloud({
   // 这里 APPID 需要换成对应的 APPID
