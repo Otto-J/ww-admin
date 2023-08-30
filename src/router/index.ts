@@ -1,9 +1,9 @@
-import { createRouter, createWebHistory } from 'vue-router/auto'
+import { createRouter, createWebHashHistory } from 'vue-router/auto'
 import { setupLayouts } from 'virtual:generated-layouts'
 import { Message } from '@arco-design/web-vue'
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHashHistory(),
   // history: createWebHistory(import.meta.env.BASE_URL)
   extendRoutes: (routes) => setupLayouts(routes)
 })
