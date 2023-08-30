@@ -15,7 +15,7 @@
               <a-form-item>
                 <a-space>
                   <a-button type="primary" html-type="submit">登录</a-button>
-                  <a-button status="danger" @click="reg">注册</a-button>
+                  <!-- <a-button status="danger" @click="reg">注册</a-button> -->
                 </a-space>
               </a-form-item>
             </a-form>
@@ -43,39 +43,30 @@ defineOptions({
 const loginUrl = '/user/login'
 const regUrl = '/user/reg'
 
-// const cloud = new Cloud({
-//   // 这里 APPID 需要换成对应的 APPID
-//   baseUrl: 'https://admin.webworker.tech',
-//   // 这里是访问策略的入口地址，如果没有访问策略可不填
-//   dbProxyUrl: '/proxy/podcast',
-//   // 请求时带的 token，可空
-//   getAccessToken: () => localStorage.getItem('access_token') as string
-// })
-
 const defaultFormModel = () => ({
   username: '',
   password: ''
 })
 const formModel = ref(defaultFormModel())
 
-const reg = async () => {
-  http
-    .request({
-      method: 'post',
-      url: regUrl,
-      data: formModel.value
-    })
-    .then(() => {
-      // console.log(2, res)
-      Message.success('注册成功')
-      formModel.value = defaultFormModel()
-    })
-    .catch((e) => {
-      Message.error('注册失败:' + e)
-    })
-}
+// const reg = async () => {
+//   http
+//     .request({
+//       method: 'post',
+//       url: regUrl,
+//       data: formModel.value
+//     })
+//     .then(() => {
+//       // console.log(2, res)
+//       Message.success('注册成功')
+//       formModel.value = defaultFormModel()
+//     })
+//     .catch((e) => {
+//       Message.error('注册失败:' + e)
+//     })
+// }
 
-const route = useRoute()
+// const route = useRoute()
 const router = useRouter()
 
 const onSubmit = () => {
