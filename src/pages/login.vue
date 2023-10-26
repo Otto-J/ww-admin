@@ -70,7 +70,7 @@ const formModel = ref(defaultFormModel())
 const router = useRouter()
 
 const onSubmit = () => {
-  console.log(formModel.value)
+  // console.log(formModel.value)
   http
     .request({
       url: loginUrl,
@@ -88,7 +88,7 @@ const onSubmit = () => {
       router.replace('/')
     })
     .catch((e) => {
-      Message.error('登录失败:' + e)
+      Message.error('登录失败:' + e.message)
     })
 }
 </script>

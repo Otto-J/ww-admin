@@ -1,7 +1,7 @@
 {
   "extends": "@vue/tsconfig/tsconfig.dom.json",
   "include": [
-    "env.d.ts",
+    "types/*",
     "src/**/*",
     "src/**/*.vue",
     "typed-router.d.ts",
@@ -14,8 +14,9 @@
     "composite": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "functions/*": ["./functions/*"]
     },
-    "types": ["vite-plugin-vue-layouts/client.d.ts"]
+    "types": ["vite-plugin-vue-layouts/client.d.ts",]
   }
 }
