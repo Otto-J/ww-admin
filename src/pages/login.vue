@@ -38,8 +38,6 @@ defineOptions({
   name: 'PageLogin'
 })
 
-// https://admin.webworker.tech/user/login
-
 const loginUrl = '/user/login'
 const regUrl = '/user/reg'
 
@@ -49,28 +47,10 @@ const defaultFormModel = () => ({
 })
 const formModel = ref(defaultFormModel())
 
-// const reg = async () => {
-//   http
-//     .request({
-//       method: 'post',
-//       url: regUrl,
-//       data: formModel.value
-//     })
-//     .then(() => {
-//       // console.log(2, res)
-//       Message.success('注册成功')
-//       formModel.value = defaultFormModel()
-//     })
-//     .catch((e) => {
-//       Message.error('注册失败:' + e)
-//     })
-// }
-
 // const route = useRoute()
 const router = useRouter()
 
 const onSubmit = () => {
-  // console.log(formModel.value)
   http
     .request({
       url: loginUrl,
@@ -80,6 +60,7 @@ const onSubmit = () => {
     .then((res) => {
       let _res = res as unknown as { access_token: string; username: string; expired_at: number }
       Message.success('登录成功')
+      console.log(_res)
       localStorage.setItem('access_token', _res.access_token)
       localStorage.setItem('username', _res.username)
       localStorage.setItem('expired_at', String(_res.expired_at))

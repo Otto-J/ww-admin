@@ -36,7 +36,7 @@ export default defineConfig({
 
       // Path for the generated types. Defaults to `./typed-router.d.ts` if typescript
       // is installed. Can be disabled by passing `false`.
-      dts: './typed-router.d.ts',
+      dts: 'types/typed-router.d.ts',
 
       // Override the name generation of routes. unplugin-vue-router exports two versions:
       // `getFileBasedRouteName()` (the default) and `getPascalCaseRouteName()`. Import any
@@ -64,7 +64,7 @@ export default defineConfig({
           sideEffect: false
         })
       ],
-      dts: './auto-imports.d.ts',
+      dts: 'types/auto-imports.d.ts',
       imports: [
         // Vue
         'vue',
@@ -82,7 +82,7 @@ export default defineConfig({
       }
     }),
     Components({
-      dts: true, // default is true
+      dts: 'types/components.d.ts', // default is true
       globs: ['**/components/*.{vue}'],
       resolvers: [
         ArcoResolver({

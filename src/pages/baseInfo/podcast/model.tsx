@@ -1,7 +1,7 @@
 import { db } from '@/utils/cloud'
 import { handle403 } from '@/utils/loginStatus'
 import type { TableColumnData } from '@arco-design/web-vue'
-import { ButtonGroup as AButtonGroup, Button, Message } from '@arco-design/web-vue'
+import { ButtonGroup as AButtonGroup, Button } from '@arco-design/web-vue'
 import dayjs from 'dayjs'
 
 // @ts-ignore
@@ -82,7 +82,7 @@ export const useTable = () => {
     }
   ])
 
-  const COL_NAME = 'ww-podcast'
+  const COL_NAME = 'podcast-webworker'
 
   const fetchTable = (isDesc = true) => {
     const col = db.collection(COL_NAME)

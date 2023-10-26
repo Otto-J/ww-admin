@@ -80,6 +80,7 @@ import { computed, ref } from 'vue'
 import { useCloned } from '@vueuse/core'
 import MdEditor from '@/components/md-editor.vue'
 import { handle403 } from '@/utils/loginStatus'
+import { db } from '@/utils/cloud'
 
 defineOptions({
   name: 'PagePodcastModel'
@@ -147,16 +148,7 @@ const text = ref('')
 
 const formRef = ref<FormInstance>()
 
-const cloud = new Cloud({
-  // 这里 APPID 需要换成对应的 APPID
-  baseUrl: 'https://admin.webworker.tech',
-  // 这里是访问策略的入口地址，如果没有访问策略可不填
-  dbProxyUrl: '/proxy/podcast',
-  // 请求时带的 token，可空
-  getAccessToken: () => localStorage.getItem('access_token') as string
-})
-const db = cloud.database()
-const COL_NAME = 'ww-podcast'
+const COL_NAME = 'podcast-webworker'
 
 const defaultFormModel = () => ({
   title: '',

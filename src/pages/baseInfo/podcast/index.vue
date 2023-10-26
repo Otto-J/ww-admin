@@ -52,7 +52,7 @@
 <script lang="tsx" setup>
 import { IconPlus } from '@arco-design/web-vue/es/icon'
 import PodcastModel from './components/model.vue'
-import { useTable } from './model.'
+import { useTable } from './model'
 
 defineOptions({
   name: 'PagePodcast'
@@ -100,3 +100,4 @@ onMounted(() => {
 </route>
 
 <style></style>
+./model

@@ -72,15 +72,26 @@ const menuDataMock = [
   },
   {
     id: '2',
-    title: '平台信息维护',
+    title: 'blog',
     children: [
       {
         id: '2-1',
         title: '平台列表',
-        url: ''
+        url: '/blogs'
       }
     ]
   }
+  // {
+  //   id: '2',
+  //   title: '平台信息维护',
+  //   children: [
+  //     {
+  //       id: '2-1',
+  //       title: '平台列表',
+  //       url: ''
+  //     }
+  //   ]
+  // }
 ]
 onMounted(() => {
   menuData.value = menuDataMock
